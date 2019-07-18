@@ -13,5 +13,8 @@ public class MainActivity extends AppCompatActivity {
         int a;
         a=2;
         System.out.println("hello world");
+
+        String name = "Cjnomi";
+        System.out.println(name);
     }
 }
