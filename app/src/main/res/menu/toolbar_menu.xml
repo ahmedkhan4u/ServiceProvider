@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/rate_us"
+        android:title="Rate Us"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/about"
+        android:title="About Us"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/logout"
+        android:title="Logout"
+        app:showAsAction="never"/>
+
+</menu>

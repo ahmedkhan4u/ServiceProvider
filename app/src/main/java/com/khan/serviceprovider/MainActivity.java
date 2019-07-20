@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        if(firebaseAuth.getCurrentUser() != null)
+        {
+            finish();
+            Intent intent = new Intent(MainActivity.this,Home.class);
+            startActivity(intent);
+        }
+
+
         forgetpassword = (TextView) findViewById(R.id.forgetpassword);
         createaccount = (TextView) findViewById(R.id.createaccount);
         email = (EditText) findViewById(R.id.loginemail);
@@ -83,8 +91,11 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
+                                progressDialog.dismiss();
                                 if(task.isSuccessful())
                                 {
+                                    startActivity(new Intent(getApplicationContext(),Home.class));
+                                    finish();
                                     
                                 }
 
