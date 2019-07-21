@@ -12,21 +12,15 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/menu_profile" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/logout"
-            android:title="@string/menu_logout" />
-
     </group>
-
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_rate"
+                android:id="@+id/nav_rate_us"
                 android:icon="@drawable/ic_rate_review_black_24dp"
                 android:title="@string/menu_rate_us" />
             <item
-                android:id="@+id/nav_about"
+                android:id="@+id/nav_about_us"
                 android:icon="@drawable/ic_group_black_24dp"
                 android:title="@string/menu_about_us" />
         </menu>
