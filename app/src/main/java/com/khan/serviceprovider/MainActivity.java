@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,14 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser() != null)
-        {
-            finish();
-            Intent intent = new Intent(MainActivity.this,Home.class);
-            startActivity(intent);
-        }
-
-
         forgetpassword = (TextView) findViewById(R.id.forgetpassword);
         createaccount = (TextView) findViewById(R.id.createaccount);
         email = (EditText) findViewById(R.id.loginemail);
@@ -52,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(MainActivity.this);
 
 
-        createaccount.setText(Html.fromHtml("<u>Create Account</u>"));
-        forgetpassword.setText(Html.fromHtml("<u>Forget Password</u>"));
-
         createaccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
 
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,12 +80,14 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                progressDialog.dismiss();
                                 if(task.isSuccessful())
                                 {
-                                    startActivity(new Intent(getApplicationContext(),Home.class));
+                                    progressDialog.dismiss();
+                                    startActivity(new Intent(getApplicationContext(), Home.class));
                                     finish();
-                                    
+                                }else {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
                             }
@@ -107,5 +98,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (mUser != null){
+            startActivity(new Intent(getApplicationContext(),Home.class));
+            finish();
+        }
+
+    }
 }
+
+
+
+
 

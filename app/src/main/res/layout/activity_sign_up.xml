@@ -7,16 +7,6 @@
     android:padding="16dp"
     tools:context=".SignUpActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Signup"
-        android:layout_centerHorizontal="true"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_centerVertical="true"
@@ -26,46 +16,71 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Name"
-            android:textAlignment="center"
-            android:layout_margin="20dp"
+            android:inputType="textPersonName"
             android:id="@+id/register_Name"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor"
+            android:padding="12dp"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Email"
-            android:inputType="textEmailAddress"
-            android:textAlignment="center"
-            android:layout_margin="20dp"
             android:id="@+id/register_Email"
+            android:textAlignment="center"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/blackColor"
+            android:padding="12dp"
+            android:layout_marginTop="10dp"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Password"
-            android:layout_margin="20dp"
-            android:textAlignment="center"
-            android:inputType="textPassword"
             android:id="@+id/register_password"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:layout_marginTop="10dp"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Contact Number"
-            android:textAlignment="center"
-            android:layout_margin="20dp"
-            android:inputType="phone"
             android:id="@+id/register_PhoneNumber"
+            android:textAlignment="center"
+            android:textColor="@color/blackColor"
+            android:padding="12dp"
+            android:layout_marginTop="10dp"
+            android:inputType="phone"
             />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/AlredyHaveAccount"
+            android:orientation="horizontal"
             android:gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:onClick="GoToLogin"
-            />
+            android:layout_marginTop="40dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Already Have An Account ?"
+                android:textColor="@color/blackColor"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/createaccount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=" Login"
+                android:textColor="@color/colorPrimaryDark"
+                android:onClick="GoToLogin"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
@@ -73,9 +88,10 @@
             android:text="SignUp"
             android:textAllCaps="false"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:onClick="Register"
+            android:background="@drawable/button_bg"
+            android:layout_margin="20dp"
+            android:textColor="@color/whiteColor"
             />
 
     </LinearLayout>

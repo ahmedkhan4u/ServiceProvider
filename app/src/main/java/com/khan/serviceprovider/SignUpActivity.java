@@ -1,5 +1,6 @@
 package com.khan.serviceprovider;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +13,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.khan.serviceprovider.Models.UserDataModel;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText mEmail,mName,mPassword,mPhoneNo;
     private FirebaseAuth mAuth;
+    private DatabaseReference mRef;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,10 @@ public class SignUpActivity extends AppCompatActivity {
         mPassword = findViewById(R.id.register_password);
         mPhoneNo = findViewById(R.id.register_PhoneNumber);
 
+        dialog = new ProgressDialog(this);
+
         mAuth = FirebaseAuth.getInstance();//Firebase Auth
+        mRef = FirebaseDatabase.getInstance().getReference().child("Users");//Db Reference
 
     }
 
@@ -62,21 +71,56 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
+        dialog.setTitle("Please wait....");
+        dialog.setMessage("Saving data in progress");
+        dialog.setCancelable(false);
+        dialog.show();
+
         RegisterUserInFirebaseAuth(name,email,phone,password);
 
     }
 
-    private void RegisterUserInFirebaseAuth(String name, String email, String phone, String password) {
+    private void RegisterUserInFirebaseAuth(final String name, final String email, final String phone, String password) {
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(SignUpActivity.this, "User Registration Successful", Toast.LENGTH_SHORT).show();
+                    String userId = mAuth.getCurrentUser().getUid();
+                    SaveDataToFirebaseDatabase(name,email,phone,userId);
+
                 }else {
+                    dialog.dismiss();
                     Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void SaveDataToFirebaseDatabase(String name, String email, String phone, String userId) {
+
+        UserDataModel userDataModel = new UserDataModel(name,email,phone,userId,"User","");
+
+        mRef.child(userId).setValue(userDataModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    dialog.dismiss();
+                    Toast.makeText(SignUpActivity.this, "Data Saved Successfully", Toast.LENGTH_SHORT).show();
+                    clearEditFields();
+                }else {
+                    dialog.dismiss();
+                    Toast.makeText(SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void clearEditFields() {
+        mPassword.setText(null);
+        mName.setText(null);
+        mPhoneNo.setText(null);
+        mEmail.setText(null);
     }
 }

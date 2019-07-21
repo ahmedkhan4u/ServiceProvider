@@ -16,14 +16,14 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    private FirebaseAuth mAuth;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
-    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        firebaseAuth = FirebaseAuth.getInstance();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -66,22 +66,22 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new FragmentProfile()).commit();
                 break;
             }
-            case R.id.nav_rate_us:
+            case R.id.nav_rate:
             {
                 Toast.makeText(Home.this,"Rate us" ,Toast.LENGTH_LONG).show();
                 break;
             }
-            case R.id.nav_about_us:
+            case R.id.nav_about:
             {
                 Toast.makeText(Home.this,"About us" ,Toast.LENGTH_LONG).show();
                 break;
             }
+
             case R.id.logout:
-            {
-                firebaseAuth.signOut();
-                finish();
+                mAuth.signOut();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            }
+                finish();
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
 
