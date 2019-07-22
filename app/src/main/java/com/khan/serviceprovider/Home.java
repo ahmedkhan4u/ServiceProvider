@@ -26,6 +26,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         setContentView(R.layout.activity_home);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mAuth = FirebaseAuth.getInstance();
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -77,11 +78,12 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 break;
             }
 
-            case R.id.logout:
+            case R.id.logout: {
                 mAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 break;
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START);
 

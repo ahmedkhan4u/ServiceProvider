@@ -3,12 +3,18 @@ package com.khan.serviceprovider;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.baoyachi.stepview.HorizontalStepView;
+import com.baoyachi.stepview.bean.StepBean;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -17,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.khan.serviceprovider.Models.UserDataModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText mEmail,mName,mPassword,mPhoneNo;
@@ -24,10 +33,37 @@ public class SignUpActivity extends AppCompatActivity {
     private DatabaseReference mRef;
     private ProgressDialog dialog;
 
+    Fragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        fragment = new signup_personal_information();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment1,fragment);
+
+        HorizontalStepView setpview5 = (HorizontalStepView) findViewById(R.id.step_view);
+        List<StepBean> stepsBeanList = new ArrayList<>();
+        StepBean stepBean0 = new StepBean("Step-1",1);
+        StepBean stepBean1 = new StepBean("Step-2",1);
+        StepBean stepBean2 = new StepBean("Step-3",1);
+        stepsBeanList.add(stepBean0);
+        stepsBeanList.add(stepBean1);
+        stepsBeanList.add(stepBean2);
+
+        setpview5
+                .setStepViewTexts(stepsBeanList)
+                .setTextSize(12)
+                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(SignUpActivity.this, android.R.color.holo_red_dark))
+                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(SignUpActivity.this, R.color.uncompleted_text_color))
+                .setStepViewComplectedTextColor(ContextCompat.getColor(SignUpActivity.this, android.R.color.holo_red_dark))
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.uncompleted_text_color))
+                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(SignUpActivity.this, R.drawable.complted))
+                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(SignUpActivity.this, R.drawable.default_icon))
+                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(SignUpActivity.this, R.drawable.attention));
 
         mEmail = findViewById(R.id.register_Email);
         mName = findViewById(R.id.register_Name);

@@ -12,10 +12,7 @@
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/menu_profile" />
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/logout"
-            android:title="@string/menu_logout" />
+
 
     </group>
 
