@@ -26,12 +26,15 @@ import com.khan.serviceprovider.Models.UserDataModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText mEmail,mName,mPassword,mPhoneNo;
     private FirebaseAuth mAuth;
     private DatabaseReference mRef;
     private ProgressDialog dialog;
+    CircleImageView profileImage;
 
     Fragment fragment;
 

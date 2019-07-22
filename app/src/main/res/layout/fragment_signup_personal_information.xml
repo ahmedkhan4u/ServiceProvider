@@ -20,6 +20,7 @@
             android:layout_height="100dp"
             android:src="@drawable/ic_launcher_background"
             app:civ_border_color="#FD3D16"
+            android:id="@+id/profileImage"
             app:civ_border_width="1dp"/>
     <EditText
         android:layout_margin="10dp"
@@ -83,13 +84,13 @@
                 android:textStyle="bold"
                 />
             <TextView
-                android:id="@+id/createaccount"
+                android:id="@+id/btnCreateAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text=" Login"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
-                />
+                tools:ignore="OnClick" />
 
         </LinearLayout>
 
@@ -103,6 +104,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/button_bg"
             android:layout_margin="10dp"
+            android:id="@+id/btnRegister"
             android:textColor="@color/whiteColor"
             />
     </LinearLayout>
