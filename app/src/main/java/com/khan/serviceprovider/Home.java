@@ -10,9 +10,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -20,6 +29,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private FirebaseAuth mAuth;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
+    private CircleImageView profileImage;
+    private TextView profileName,profileEmail;
+    DatabaseReference mRef;
+    String currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +43,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser().getUid();
+
+        mRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        profileImage = findViewById(R.id.home_ProfileImage);
+        profileEmail = findViewById(R.id.home_ProfielEmail);
+        profileName = findViewById(R.id.home_ProfileName);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -86,5 +106,43 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getProfileDataFormFirebase();
+    }
+
+    private void getProfileDataFormFirebase() {
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(currentUser).exists()){
+                    String name = dataSnapshot
+                            .child(currentUser).child("name").getValue().toString();
+                    String email = dataSnapshot
+                            .child(currentUser).child("email").getValue().toString();
+                    String imageUrl = dataSnapshot
+                            .child(currentUser).child("imageUrl").getValue().toString();
+
+                    showDataOnDrawer(name,email,imageUrl);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void showDataOnDrawer(String name, String email, String imageUrl) {
+        profileImage = findViewById(R.id.home_ProfileImage);
+        profileEmail = findViewById(R.id.home_ProfielEmail);
+        profileName = findViewById(R.id.home_ProfileName);
+        profileName.setText(name);
+        profileEmail.setText(email);
+        Picasso.with(getApplicationContext()).load(imageUrl).placeholder(R.drawable.profile_image).into(profileImage);
     }
 }

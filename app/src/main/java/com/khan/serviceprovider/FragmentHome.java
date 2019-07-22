@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.khan.serviceprovider.Models.ItemsModel;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Ref;
+
 public class FragmentHome extends Fragment {
 
     private FirebaseAuth mAuth;
@@ -88,21 +90,22 @@ public class FragmentHome extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull ItemsViewHolder holder, final int position, @NonNull ItemsModel model) {
-                final String PostKey = getRef(position).getKey();
                 holder.setItemName(model.getItemName());
                 holder.setItemImage(model.getItemImage(),getContext());
 
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        final String PostKey = getRef(position).getKey();
                         mDatabase.child(PostKey).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()){
-                                    String itemName = dataSnapshot.child("itemName").getValue().toString();
+                                    final String itemName = dataSnapshot.child("itemName").getValue().toString();
+                                    Toast.makeText(getContext(), itemName, Toast.LENGTH_SHORT).show();
 
-                                    if (itemName.equals("Conference Room"));{
-                                        //Goto Conference Room Activity
+                                    if (itemName.equals("Deskside Pedicures"));{
+                                        Toast.makeText(getContext(), "Conference Room", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }

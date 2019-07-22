@@ -15,6 +15,7 @@
         android:layout_height="100dp"
         android:src="@drawable/ic_launcher_background"
         app:civ_border_color="#FD3D16"
+        android:id="@+id/home_ProfileImage"
         app:civ_border_width="1dp"/>
 
     <TextView
@@ -24,6 +25,7 @@
         android:paddingTop="8dp"
         android:text="Profile name"
         android:textColor="#ffffff"
+        android:id="@+id/home_ProfileName"
         android:textStyle="bold"/>
 
     <TextView
@@ -31,6 +33,7 @@
         android:layout_height="wrap_content"
         android:text="youremail@gmail.com"
         android:textColor="#ffffff"
+        android:id="@+id/home_ProfielEmail"
         android:textStyle="bold"/>
 
 </LinearLayout>
