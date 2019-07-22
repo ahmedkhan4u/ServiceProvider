@@ -31,6 +31,8 @@ public class SplashScreen extends AppCompatActivity {
         progressBar = findViewById(R.id.splash_progressBar);
         mProgressText = findViewById(R.id.splash_ProgressText);
 
+
+
         new Thread(new Runnable() {
             @Override
             public void run() {

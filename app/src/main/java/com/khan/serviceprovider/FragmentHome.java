@@ -1,40 +1,61 @@
 package com.khan.serviceprovider;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.khan.serviceprovider.Models.ItemsModel;
+import com.squareup.picasso.Picasso;
 
 public class FragmentHome extends Fragment {
 
     private FirebaseAuth mAuth;
     private String currentUserId;
     private FloatingActionButton floatingActionButton;
-    private DatabaseReference mRef;
+    private DatabaseReference mRef,mDatabase;
+    RecyclerView mRecyclerView;
+    GridLayoutManager gridLayoutManager;
+    FirebaseRecyclerOptions<ItemsModel> firebaseRecyclerOptions;
+    FirebaseRecyclerAdapter firebaseRecyclerAdapter;
     View view;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home,container,false);
 
+        mRecyclerView = view.findViewById(R.id.items_recyclerView);
+        gridLayoutManager = new GridLayoutManager(container.getContext(),2);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        gridLayoutManager.setSmoothScrollbarEnabled(true);
+
         floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Items Data");
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +72,53 @@ public class FragmentHome extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<ItemsModel>()
+                .setQuery(mDatabase,ItemsModel.class)
+                .build();
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ItemsModel,ItemsViewHolder>(firebaseRecyclerOptions) {
+
+            @NonNull
+            @Override
+            public ItemsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+                View view = LayoutInflater.from(getContext())
+                        .inflate(R.layout.custom_item_list,viewGroup,false);
+                return new ItemsViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull ItemsViewHolder holder, final int position, @NonNull ItemsModel model) {
+                final String PostKey = getRef(position).getKey();
+                holder.setItemName(model.getItemName());
+                holder.setItemImage(model.getItemImage(),getContext());
+
+                holder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDatabase.child(PostKey).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()){
+                                    String itemName = dataSnapshot.child("itemName").getValue().toString();
+
+                                    if (itemName.equals("Conference Room"));{
+                                        //Goto Conference Room Activity
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                });
+            }
+        };
+
+        mRecyclerView.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.startListening();
     }
 
     private void checkAdminStatus() {
@@ -76,6 +144,25 @@ public class FragmentHome extends Fragment {
             }
         });
 
-
     }
+
+    public static class ItemsViewHolder extends RecyclerView.ViewHolder{
+        View mView;
+        public ItemsViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
+        }
+
+        public void setItemName(String itemName) {
+            TextView mName = mView.findViewById(R.id.custom_ItemName);
+            mName.setText(itemName);
+        }
+
+        public void setItemImage(String itemImage, Context context) {
+            ImageView mImage = mView.findViewById(R.id.custom_itemImage);
+            Picasso.with(context).load(itemImage).into(mImage);
+
+        }
+    }
+
 }

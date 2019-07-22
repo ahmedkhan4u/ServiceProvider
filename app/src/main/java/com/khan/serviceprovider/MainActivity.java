@@ -1,7 +1,9 @@
 package com.khan.serviceprovider;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,9 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     EditText email, password;
     Button loginbutton;
-
+    private String checkStatus;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
+    private CheckBox mCheckBox;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.passwordemail);
         loginbutton = (Button) findViewById(R.id.buttlogin);
 
+        mCheckBox = findViewById(R.id.login_CheckBox);
+
         progressDialog = new ProgressDialog(MainActivity.this);
+
 
 
         createaccount.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
                 {
                     password.setError("Password Is Required");
                     return;
+                }
+                if (mCheckBox.isChecked()){
+                    Toast.makeText(MainActivity.this, "Check", Toast.LENGTH_SHORT).show();
+                    sharedPreferences = getSharedPreferences("StayConnect", Context.MODE_PRIVATE);
+                    editor = sharedPreferences.edit();
+                    checkStatus = "true";
+                    editor.putString("check_status",checkStatus);
+                    editor.commit();
                 }
                 progressDialog.setMessage("Connecting to Servers...");
                 progressDialog.setCancelable(false);
@@ -101,14 +118,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (mUser != null){
-            startActivity(new Intent(getApplicationContext(),Home.class));
-            finish();
+        sharedPreferences = getSharedPreferences("StayConnect",Context.MODE_PRIVATE);
+        String mCheckStatus = this.sharedPreferences.getString("check_status","false");
+        if (mCheckStatus.equals("true")){
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null){
+                startActivity(new Intent(getApplicationContext(),Home.class));
+                finish();
+            }
         }
-
     }
 }
 

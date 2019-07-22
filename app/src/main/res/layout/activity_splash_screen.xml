@@ -60,15 +60,16 @@
         <ProgressBar
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="100dp"
-            android:indeterminateTintMode="src_atop"
             android:id="@+id/splash_progressBar"
             android:layout_marginEnd="50dp"
             android:layout_marginStart="50dp"
-            android:backgroundTint="@color/greenColor"
             android:visibility="visible"
+            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+            android:progressTint="#4CAF50"
+            android:progressBackgroundTint="#FAFAFA"
+
 
             />
     </RelativeLayout>
