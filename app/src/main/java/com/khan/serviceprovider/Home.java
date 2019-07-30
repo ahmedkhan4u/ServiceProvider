@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,10 +49,11 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         currentUser = mAuth.getCurrentUser().getUid();
 
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
-        profileImage = findViewById(R.id.home_ProfileImage);
-        profileEmail = findViewById(R.id.home_ProfielEmail);
-        profileName = findViewById(R.id.home_ProfileName);
+        mRef.keepSynced(true);
+        View myView =  navigationView.getHeaderView(0);
+        profileImage = myView.findViewById(R.id.home_ProfileImage);
+        profileEmail = myView.findViewById(R.id.home_ProfielEmail);
+        profileName = myView.findViewById(R.id.home_ProfileName);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -138,11 +142,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     private void showDataOnDrawer(String name, String email, String imageUrl) {
-        profileImage = findViewById(R.id.home_ProfileImage);
-        profileEmail = findViewById(R.id.home_ProfielEmail);
-        profileName = findViewById(R.id.home_ProfileName);
-        profileName.setText(name);
-        profileEmail.setText(email);
-        Picasso.with(getApplicationContext()).load(imageUrl).placeholder(R.drawable.profile_image).into(profileImage);
-    }
+
+
+//        if (profileEmail != null && !profileEmail.getText().toString().equals("")) {
+            profileName.setText(name);
+            profileEmail.setText(email);
+            Picasso.with(getApplicationContext()).load(imageUrl).placeholder(R.drawable.profile_image).into(profileImage);
+
+      //  }
+
+        }
 }

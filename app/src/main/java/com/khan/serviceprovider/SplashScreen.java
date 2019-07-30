@@ -15,13 +15,9 @@ public class SplashScreen extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private TextView mProgressText;
-    Thread thread;
     int progressStatus;
     private Handler handler = new Handler();
-    int value = 100;
-    int mValue = 30;
 
-    @SuppressLint({"NewApi", "ResourceAsColor"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

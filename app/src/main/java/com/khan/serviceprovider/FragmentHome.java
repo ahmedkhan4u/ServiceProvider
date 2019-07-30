@@ -97,15 +97,17 @@ public class FragmentHome extends Fragment {
                     @Override
                     public void onClick(View v) {
                         final String PostKey = getRef(position).getKey();
+                        String itemName;
                         mDatabase.child(PostKey).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()){
-                                    final String itemName = dataSnapshot.child("itemName").getValue().toString();
+                                    String itemName = dataSnapshot.child("itemName").getValue().toString();
                                     Toast.makeText(getContext(), itemName, Toast.LENGTH_SHORT).show();
 
-                                    if (itemName.equals("Deskside Pedicures"));{
+                                    if (itemName.equals("Conference Room")){
                                         Toast.makeText(getContext(), "Conference Room", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getActivity(),ConferenceRoom.class));
                                     }
                                 }
                             }

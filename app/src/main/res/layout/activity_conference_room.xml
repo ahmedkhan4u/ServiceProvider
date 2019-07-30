@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:id="@+id/linearLayout"
+    tools:context=".ConferenceRoom">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+        <include layout="@layout/custom_toolbar"
+            android:id="@+id/toolbarConferenceRoom">
+        </include>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:padding="16dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_ConferenceRoom"
+
+                >
+            </Spinner>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/blackColor"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:id="@+id/confereceRoomCalender"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Data and Time"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="8dp"
+                    android:id="@+id/confr_dateAndTime"
+                    android:textColor="@color/blackColor"
+                    />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/calender"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/blackColor"
+                android:layout_marginTop="5dp"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="40dp"
+                android:text="Reserve Room"
+                android:textAllCaps="false"
+                android:background="@drawable/button_bg"
+                android:textColor="@color/whiteColor"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:onClick="ReserveRoom"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="20dp"
+                android:text="Outlook Invite"
+                android:textAllCaps="false"
+                android:background="@drawable/button_bg"
+                android:textColor="@color/whiteColor"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="20dp"
+                android:text="Available Dates"
+                android:textAllCaps="false"
+                android:background="@drawable/button_bg"
+                android:textColor="@color/whiteColor"
+                android:id="@+id/btn_chkAvailableRoom"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        >
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:text="Cancel Room"
+            android:textAllCaps="false"
+            android:layout_centerInParent="true"
+            android:background="@drawable/button_bg"
+            android:textColor="@color/whiteColor"
+            android:id="@+id/btn_cancelConferenceRoom"
+            />
+    </RelativeLayout>
+
+
+</LinearLayout>
