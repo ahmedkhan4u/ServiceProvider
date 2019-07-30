@@ -26,6 +26,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.khan.serviceprovider.Models.UserDataModel;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -206,6 +207,7 @@ public class signup_personal_information extends Fragment {
                     downloadUrl = task.getResult().toString();
                     Toast.makeText(getContext(), "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
                     SaveDataToFirebaseDatabase(name,email,password,uId);
+                    Picasso.with(getContext()).load(downloadUrl).placeholder(R.drawable.profile_image).into(profileImage);
                     clearEditFields();
                     dialog.dismiss();
                 } else {

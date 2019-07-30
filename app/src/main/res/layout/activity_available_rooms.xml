@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AvailableRooms">
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/compactcalendar_view"
+        android:layout_width="fill_parent"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_height="250dp"
+        app:compactCalendarCurrentDayTextColor="#6F6F6F"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextSize="12sp"
+        app:compactCalendarBackgroundColor="#FFFFFF"
+        app:compactCalendarTextColor="#6F6F6F"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="#FA3939"
+        app:compactCalendarCurrentDayBackgroundColor="#4CAF50"
+        app:compactCalendarMultiEventIndicatorColor="#FFFFFF"
+        app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
+        app:compactCalendarCurrentSelectedDayIndicatorStyle="no_fill_large_indicator"
+app:compactCalendarCurrentSelectedDayTextColor="#6F6F6F"
+        app:compactCalendarEventIndicatorStyle="fill_large_indicator"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="30dp"
+        android:background="@drawable/button_bg"
+        android:text="Select Date/Time"
+        android:textAllCaps="false"
+        android:textColor="@color/whiteColor"
+        android:onClick="SelectDateTime"
+        android:id="@+id/selectDate"
+        />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/confereceRoomCalender"
+        android:layout_below="@+id/compactcalendar_view"
+        android:layout_marginStart="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Start Date"
+            android:layout_centerVertical="true"
+            android:paddingStart="8dp"
+            android:id="@+id/availableStartDate"
+            android:textColor="@color/blackColor"
+            />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/calender"
+            android:layout_toEndOf="@+id/availableStartDate"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/compactcalendar_view"
+        android:layout_marginEnd="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Start Date"
+            android:layout_centerVertical="true"
+            android:paddingStart="8dp"
+            android:id="@+id/availableEndDate"
+            android:textColor="@color/blackColor"
+            />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/calender"
+            android:layout_toEndOf="@+id/availableEndDate"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
