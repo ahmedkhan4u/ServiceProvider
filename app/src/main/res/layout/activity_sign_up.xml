@@ -4,42 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:background="#ffffff"
     android:orientation="vertical"
-    android:weightSum="4"
+    android:weightSum="7"
+    android:id="@+id/linearLayout"
     tools:context=".SignUpActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:weightSum="2">
+        <RadioButton
+            android:id="@+id/personal_info_radio"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <View
+            android:id="@+id/view1"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="5dp"
+            android:background="#FFFD9884"/>
+        <RadioButton
+            android:id="@+id/addresses_radio"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <View
+            android:id="@+id/view2"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_weight="1"
+            android:background="#FFFD9884"/>
+        <RadioButton
+            android:id="@+id/payment_radio"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+
+
+<FrameLayout
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    >
         <fragment
             android:id="@+id/fragment1"
             android:name="com.khan.serviceprovider.signup_personal_information"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></fragment>
 
-    </LinearLayout>
+</FrameLayout>
 
     <LinearLayout
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="6"
+        android:gravity="center"
         android:orientation="vertical">
-
-
-
-        <com.baoyachi.stepview.HorizontalStepView
-            android:id="@+id/step_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
         <Button
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:id="@+id/nextbutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:background="@drawable/button_bg"
             android:onClick="Register"
             android:text="Next"
