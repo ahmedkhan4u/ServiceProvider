@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -104,13 +103,11 @@ public class FragmentHome extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()){
                                     String itemName = dataSnapshot.child("itemName").getValue().toString();
+                                    Toast.makeText(getContext(), itemName, Toast.LENGTH_SHORT).show();
+
                                     if (itemName.equals("Conference Room")){
                                         Toast.makeText(getContext(), "Conference Room", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getActivity(),ConferenceRoom.class));
-                                    }
-                                    else if (itemName.equals("Car Wash")){
-                                        Toast.makeText(getContext(), "Car Wash", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getActivity(), CarWash.class));
                                     }
                                 }
                             }
