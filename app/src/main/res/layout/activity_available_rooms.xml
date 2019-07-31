@@ -12,7 +12,7 @@
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
         android:layout_height="250dp"
-        app:compactCalendarCurrentDayTextColor="#6F6F6F"
+        app:compactCalendarCurrentDayTextColor="#FFFFFF"
         app:compactCalendarTargetHeight="250dp"
         app:compactCalendarTextSize="12sp"
         app:compactCalendarBackgroundColor="#FFFFFF"
@@ -22,7 +22,7 @@
         app:compactCalendarMultiEventIndicatorColor="#FFFFFF"
         app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
         app:compactCalendarCurrentSelectedDayIndicatorStyle="no_fill_large_indicator"
-app:compactCalendarCurrentSelectedDayTextColor="#6F6F6F"
+        app:compactCalendarCurrentSelectedDayTextColor="#6F6F6F"
         app:compactCalendarEventIndicatorStyle="fill_large_indicator"
 
         />
@@ -33,7 +33,7 @@ app:compactCalendarCurrentSelectedDayTextColor="#6F6F6F"
         android:layout_alignParentBottom="true"
         android:layout_margin="30dp"
         android:background="@drawable/button_bg"
-        android:text="Select Date/Time"
+        android:text="Check Available Dates"
         android:textAllCaps="false"
         android:textColor="@color/whiteColor"
         android:onClick="SelectDateTime"
@@ -43,9 +43,9 @@ app:compactCalendarCurrentSelectedDayTextColor="#6F6F6F"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:id="@+id/confereceRoomCalender"
+        android:id="@+id/calendarStartDate"
         android:layout_below="@+id/compactcalendar_view"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="8dp"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -53,14 +53,16 @@ app:compactCalendarCurrentSelectedDayTextColor="#6F6F6F"
             android:hint="Start Date"
             android:layout_centerVertical="true"
             android:paddingStart="8dp"
-            android:id="@+id/availableStartDate"
+            android:id="@+id/txtStartDate"
             android:textColor="@color/blackColor"
+            android:textSize="12sp"
+
             />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/calender"
-            android:layout_toEndOf="@+id/availableStartDate"
+            android:layout_toEndOf="@+id/txtStartDate"
             android:layout_marginStart="20dp"
             android:layout_centerVertical="true"
             />
@@ -73,25 +75,45 @@ app:compactCalendarCurrentSelectedDayTextColor="#6F6F6F"
         android:layout_marginTop="20dp"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/compactcalendar_view"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/calendarEndDate"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Start Date"
+            android:hint="End Date"
             android:layout_centerVertical="true"
-            android:paddingStart="8dp"
-            android:id="@+id/availableEndDate"
+            android:id="@+id/txtEndDate"
+            android:textSize="12sp"
+            android:layout_marginEnd="20dp"
             android:textColor="@color/blackColor"
             />
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/calender"
-            android:layout_toEndOf="@+id/availableEndDate"
-            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/txtEndDate"
             android:layout_centerVertical="true"
             />
+
     </RelativeLayout>
+
+    <View
+        android:layout_width="148dp"
+        android:layout_height="1dp"
+        android:background="@color/blackColor"
+        android:layout_below="@+id/calendarStartDate"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        />
+    <View
+        android:layout_width="148dp"
+        android:layout_height="1dp"
+        android:background="@color/blackColor"
+        android:layout_below="@+id/calendarStartDate"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        />
 
 </RelativeLayout>
