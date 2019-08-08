@@ -53,7 +53,7 @@ public class AvailableRooms extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_rooms);
 
-        mRef = FirebaseDatabase.getInstance().getReference().child("Reservations");
+        mRef = FirebaseDatabase.getInstance().getReference().child("Reservations").child("Calendar Dates");
 
         finalValues = new ArrayList<String>();
         arrayList = new ArrayList<String>();
@@ -119,10 +119,12 @@ public class AvailableRooms extends AppCompatActivity {
                     for (DataSnapshot childSnapShot : item.getChildren()) {
                         final String timestamp = childSnapShot.getKey();
                         final DataSnapshot parentSnapShot = childSnapShot.child(timestamp);
-                        System.out.println(timestamp);
                         arrayList.add(timestamp);
+                        System.out.println(timestamp);
                     }
                 }
+
+                System.out.println(arrayList);
 
                 setDateOnCalendar();
             }
@@ -143,30 +145,35 @@ public class AvailableRooms extends AppCompatActivity {
         getEndDate();
 
         int i=0;
-        while (i<arrayList.size()){
-            String value = arrayList.get(i).toString();
-            String  []splitArray = value.split(",");
-            String date_time = splitArray[0]+" "+splitArray[1];
 
-            String myDate = date_time;
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            Date date = null;
-            try {
-                date = sdf.parse(myDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
+        try{
+            while (i<arrayList.size()) {
+                String value = arrayList.get(i).toString();
+                String[] splitArray = value.split(",");
+                String date_time = splitArray[0] + " " + splitArray[1];
+
+                String myDate = date_time;
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                Date date = null;
+                try {
+                    date = sdf.parse(myDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long millis = date.getTime();
+
+                if (millis >= calStartDate && millis <= calEndDate) {
+                    Event ev1 = new Event(Color.RED, millis, "Some extra data that I want to store.");
+                    compactCalendarView.addEvent(ev1);
+                }
+
+                i++;
             }
-            long millis = date.getTime();
-
-            if (millis>=calStartDate && millis<=calEndDate)
-            {
-                Event ev1 = new Event(Color.RED, millis, "Some extra data that I want to store.");
-                compactCalendarView.addEvent(ev1);
-            }
-
-            i++;
+        }catch (Exception ex){
+            System.err.println(ex);
         }
-    }
+
+        }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void getStartDate() {

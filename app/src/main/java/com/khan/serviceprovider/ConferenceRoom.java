@@ -67,8 +67,8 @@ public class ConferenceRoom extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Conference Room");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mRef = FirebaseDatabase.getInstance().getReference().child("Reservations");
-        postRef = FirebaseDatabase.getInstance().getReference().child("Reservations").child("Conference Room");
+        mRef = FirebaseDatabase.getInstance().getReference().child("Reservations").child("Calendar Dates");
+        postRef = FirebaseDatabase.getInstance().getReference().child("Reservations").child("Calendar Dates").child("Conference Room");
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getUid();
         linearLayout = findViewById(R.id.linearLayout);

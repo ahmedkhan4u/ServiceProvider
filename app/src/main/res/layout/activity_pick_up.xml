@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    android:id="@+id/carWashLayout"
-    tools:context=".CarWash">
+    android:id="@+id/ShoppinPickup"
+    tools:context=".PickUpActivity">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         android:layout_weight="1"
         >
         <include layout="@layout/custom_toolbar"
-            android:id="@+id/toolbar_carWash">
+            android:id="@+id/toolbar_shoppingPickup">
         </include>
     </RelativeLayout>
 
@@ -35,7 +36,7 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner_carwash"
+                android:id="@+id/spinnerStoreName"
                 >
             </Spinner>
             <View
@@ -43,44 +44,50 @@
                 android:layout_height="1dp"
                 android:background="@color/blackColor"
                 />
-            <RelativeLayout
+
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/spinnerStoreLocation"
                 android:layout_marginTop="20dp"
-                android:id="@+id/carwash_calendar"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Data and Time"
-                    android:layout_centerVertical="true"
-                    android:paddingStart="8dp"
-                    android:id="@+id/carwash_datAndTime"
-                    android:textColor="@color/blackColor"
-                    />
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/calender"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    />
-
-            </RelativeLayout>
+            </Spinner>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/blackColor"
-                android:layout_marginTop="5dp"
+                />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_bg"
+                android:text="Add New Store"
+                android:textAllCaps="false"
+                android:textColor="@color/whiteColor"
+                android:onClick="ButtonAddStore"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_bg"
+                android:text="Take a Picture of a Receipt"
+                android:textAllCaps="false"
+                android:textColor="@color/whiteColor"
+                android:onClick="ButtonReceiptImage"
                 />
 
             <TextView
-                android:layout_marginTop="50dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time Window: 2:00 PM - 4:00 PM"
+                android:layout_marginTop="5dp"
+                android:textSize="12sp"
+                android:text="Pickup cost does not include purchase of merchandise. This service is only to pickup items"
                 />
-
         </LinearLayout>
     </RelativeLayout>
     <RelativeLayout
@@ -110,11 +117,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="$0"
+                    android:text="$35"
                     android:layout_alignParentEnd="true"
                     android:textStyle="bold"
                     android:layout_margin="5dp"
-                    android:id="@+id/txt_DryCleanCost"
+                    android:id="@+id/txt_storePickupPrice"
                     />
 
             </RelativeLayout>
@@ -124,12 +131,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@drawable/button_bg"
-            android:text="Order Car Wash"
+            android:text="Order Pickup"
             android:textAllCaps="false"
             android:textColor="@color/whiteColor"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:id="@+id/carwash_btnOrderWash"
-            android:onClick="Button_OrderCarwash"
+            android:onClick="Button_shoppingPickupOrder"
             />
     </RelativeLayout>
+
+
 </LinearLayout>

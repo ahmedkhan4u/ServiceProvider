@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.khan.serviceprovider">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AvailableRooms"></activity>
+        <activity android:name=".CarGasRefuelActivity"></activity>
+        <activity
+            android:name=".PickUpActivity"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".DesksideManicures"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".CleaningServicesActivity"
+            android:parentActivityName=".Home" />
+        <activity
+            android:name=".DryCleanActivity"
+            android:parentActivityName=".Home" />
+        <activity android:name=".AvailableRooms" />
         <activity
             android:name=".ConferenceRoom"
             android:parentActivityName=".Home" />
@@ -28,7 +44,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".CarWash" />
         <activity android:name=".MainActivity" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 
 </manifest>

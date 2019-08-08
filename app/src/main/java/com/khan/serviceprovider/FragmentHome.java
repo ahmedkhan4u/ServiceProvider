@@ -4,12 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,8 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.khan.serviceprovider.Models.ItemsModel;
 import com.squareup.picasso.Picasso;
-
-import java.sql.Ref;
 
 public class FragmentHome extends Fragment {
 
@@ -103,11 +102,30 @@ public class FragmentHome extends Fragment {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.exists()){
                                     String itemName = dataSnapshot.child("itemName").getValue().toString();
-                                    Toast.makeText(getContext(), itemName, Toast.LENGTH_SHORT).show();
 
                                     if (itemName.equals("Conference Room")){
                                         Toast.makeText(getContext(), "Conference Room", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getActivity(),ConferenceRoom.class));
+                                    }
+                                    else if(itemName.equals("Car Wash")){
+                                        Toast.makeText(getContext(), "CarWash", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getActivity(),CarWash.class));
+                                    }
+                                    else if(itemName.equals("Dry Clean")){
+                                        Toast.makeText(getContext(), "Dry Clean", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getActivity(),DryCleanActivity.class));
+                                    }else if (itemName.equalsIgnoreCase("clean service")){
+                                        Toast.makeText(getContext(), "Cleaning Services", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getActivity(),CleaningServicesActivity.class));
+                                    }else if (itemName.equalsIgnoreCase("deskside pedicures")){
+                                        Toast.makeText(getContext(), "Deskside Manicures", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getContext(),DesksideManicures.class));
+                                    }else if (itemName.equalsIgnoreCase("shopping pickup")){
+                                        Toast.makeText(getContext(), "Shopping Pickup", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getContext(),PickUpActivity.class));
+                                    }else if (itemName.equalsIgnoreCase("car gas refuel")){
+                                        Toast.makeText(getContext(), "Car Gas Refuel", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getContext(),CarGasRefuelActivity.class));
                                     }
                                 }
                             }

@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    android:id="@+id/carWashLayout"
-    tools:context=".CarWash">
+    android:id="@+id/desksideManicures"
+    tools:context=".DesksideManicures">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:layout_weight="1"
         >
         <include layout="@layout/custom_toolbar"
-            android:id="@+id/toolbar_carWash">
+            android:id="@+id/toolbar_deskSideManicures">
         </include>
     </RelativeLayout>
 
@@ -35,7 +35,7 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner_carwash"
+                android:id="@+id/spinner_DesksideManicures"
                 >
             </Spinner>
             <View
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:id="@+id/carwash_calendar"
+                android:id="@+id/desksideManicures_calendar"
                 >
                 <TextView
                     android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
                     android:hint="Data and Time"
                     android:layout_centerVertical="true"
                     android:paddingStart="8dp"
-                    android:id="@+id/carwash_datAndTime"
+                    android:id="@+id/desksideManicures_datAndTime"
                     android:textColor="@color/blackColor"
                     />
                 <ImageButton
@@ -74,11 +74,12 @@
                 android:layout_marginTop="5dp"
                 />
 
-            <TextView
-                android:layout_marginTop="50dp"
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time Window: 2:00 PM - 4:00 PM"
+                android:layout_marginTop="5dp"
+                android:hint="Morning/Evening"
+                android:id="@+id/desksideManicures_dayTiming"
                 />
 
         </LinearLayout>
@@ -114,7 +115,7 @@
                     android:layout_alignParentEnd="true"
                     android:textStyle="bold"
                     android:layout_margin="5dp"
-                    android:id="@+id/txt_DryCleanCost"
+                    android:id="@+id/txt_desksideManicureTotalPrice"
                     />
 
             </RelativeLayout>
@@ -129,7 +130,8 @@
             android:textColor="@color/whiteColor"
             android:layout_marginBottom="20dp"
             android:id="@+id/carwash_btnOrderWash"
-            android:onClick="Button_OrderCarwash"
+            android:onClick="ButtonDeskManicuresReqSer"
             />
     </RelativeLayout>
+
 </LinearLayout>

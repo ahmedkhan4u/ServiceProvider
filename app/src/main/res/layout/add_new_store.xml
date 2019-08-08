@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edt_storeName"
+        android:hint="Enter Store Name"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edt_storeLocation"
+        android:layout_marginTop="10dp"
+        android:hint="Enter Store Address"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+        <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_bg"
+        android:text="Add"
+        android:textColor="@color/whiteColor"
+        android:textAllCaps="false"
+        android:id="@+id/btn_addStore"
+            android:layout_marginEnd="5dp"
+        />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_bg"
+            android:text="Cancel"
+            android:textColor="@color/whiteColor"
+            android:layout_weight="1"
+            android:textAllCaps="false"
+            android:id="@+id/btnCancelStoreDialog"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

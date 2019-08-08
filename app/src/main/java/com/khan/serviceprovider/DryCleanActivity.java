@@ -28,90 +28,98 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.khan.serviceprovider.Models.CarWashModel;
+import com.khan.serviceprovider.Models.DryCleanModel;
 
 import java.util.Calendar;
 
-public class CarWash extends AppCompatActivity {
-    private Spinner mSpinner;
-    private String [] spinnerValues = {"Select Type","Waterless Wash","Handwash","Automatic"};
+public class DryCleanActivity extends AppCompatActivity {
 
-    private DatabaseReference mRef;
-    private FirebaseAuth mAuth;
-    private Toolbar toolbar;
-    String selectedWash,currentUserId;
+    private String [] spinnerValues = {"Pickup","Yes","No"};
+    private String selectType;
+    Toolbar toolbar;
+    Spinner mSpinner;
     String date_time = "";
     int mYear;
     int mMonth;
     int mDay;
     int mHour;
     int mMinute;
-    private TextView txtCarWashPrice;
-    String completeDateTime="";
-    TextView mDateAndTime;
-    RelativeLayout carwashCalendar;
+    FirebaseAuth mAuth;
+    DatabaseReference mRef;
+    String current_userId;
+    RelativeLayout mCalender;
+    private TextView dateAndTime,txtDryCleanCost,txtDryCleanPickup,txtDryCleanTotal;
+    String completeDateTime;
     ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_wash);
+        setContentView(R.layout.activity_dry_clean);
 
-        toolbar = findViewById(R.id.toolbar_carWash);
-        mSpinner = findViewById(R.id.spinner_carwash);
-        mDateAndTime = findViewById(R.id.carwash_datAndTime);
-        mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
-        mRef = FirebaseDatabase.getInstance().getReference().child("Reservations").child("Car Wash");
-        carwashCalendar = findViewById(R.id.carwash_calendar);
-        txtCarWashPrice = findViewById(R.id.txt_DryCleanCost);
+        toolbar = findViewById(R.id.toolbar_dryclean);
+        mSpinner = findViewById(R.id.spinner_dryclean);
+        mCalender = findViewById(R.id.dryClean_calendar);
+        dateAndTime = findViewById(R.id.carwash_datAndTime);
         progressDialog = new ProgressDialog(this);
+        mAuth = FirebaseAuth.getInstance();
+        current_userId = mAuth.getCurrentUser().getUid();
+        mRef = FirebaseDatabase.getInstance().getReference().child("Reservations").child("Dry Clean");
+
+        txtDryCleanCost = findViewById(R.id.txt_DryCleanCost);
+        txtDryCleanPickup = findViewById(R.id.txt_DryCleanPickup);
+        txtDryCleanTotal = findViewById(R.id.txt_DryCleanTotal);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Car Wash");
+        getSupportActionBar().setTitle("Dry Clean");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fillSpinnerValues();
 
-        carwashCalendar.setOnClickListener(new View.OnClickListener() {
+        mCalender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 datePicker();
             }
         });
+
     }
+
 
     private void fillSpinnerValues() {
         ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(CarWash.this,android.R.layout.simple_spinner_item,spinnerValues);
+                new ArrayAdapter<String>(DryCleanActivity.this,android.R.layout.simple_spinner_item,spinnerValues);
         mSpinner.setAdapter(arrayAdapter);
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int index = mSpinner.getSelectedItemPosition();
-                selectedWash = spinnerValues[index];
-                setCarWashPrice(selectedWash);
-                Toast.makeText(CarWash.this, spinnerValues[index], Toast.LENGTH_SHORT).show();
+                selectType = spinnerValues[index];
+                if (selectType.equalsIgnoreCase("yes")){
+
+                    int cleanCost=40, picupCost=10, total;
+                    total = cleanCost+picupCost;
+
+                    txtDryCleanCost.setText("$40");
+                    txtDryCleanPickup.setText("$10");
+                    txtDryCleanTotal.setText("$"+total);
+                }
+                else if (selectType.equalsIgnoreCase("no")){
+                    txtDryCleanCost.setText("$40");
+                    txtDryCleanPickup.setText("$0");
+                    txtDryCleanTotal.setText("$40");
+                }
+                else {
+                    txtDryCleanCost.setText("$0");
+                    txtDryCleanPickup.setText("$0");
+                    txtDryCleanTotal.setText("$0");
+                }
+                Toast.makeText(DryCleanActivity.this, spinnerValues[index], Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-    }
-
-    private void setCarWashPrice(String selectedWash) {
-        if (selectedWash.equals("Automatic")){
-            txtCarWashPrice.setText("$50");
-        }else if (selectedWash.equals("Waterless Wash")){
-            txtCarWashPrice.setText("$30");
-        }
-        else if (selectedWash.equals("Handwash")){
-            txtCarWashPrice.setText("$40");
-        }
-        else {
-            txtCarWashPrice.setText("$0");
-        }
     }
 
     private void datePicker(){
@@ -122,7 +130,7 @@ public class CarWash extends AppCompatActivity {
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        final DatePickerDialog datePickerDialog = new DatePickerDialog(CarWash.this,
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(DryCleanActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override
@@ -130,7 +138,7 @@ public class CarWash extends AppCompatActivity {
 
                         date_time = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year+",";
                         //*************Call Time Picker Here ********************
-                        Toast.makeText(CarWash.this, date_time, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DryCleanActivity.this, date_time, Toast.LENGTH_SHORT).show();
                         tiemPicker();
 
                         c.set(mYear,mMonth,mDay);
@@ -149,7 +157,7 @@ public class CarWash extends AppCompatActivity {
         mMinute = c.get(Calendar.MINUTE);
 
         // Launch Time Picker Dialog
-        TimePickerDialog timePickerDialog = new TimePickerDialog(CarWash.this,
+        TimePickerDialog timePickerDialog = new TimePickerDialog(DryCleanActivity.this,
                 new TimePickerDialog.OnTimeSetListener() {
 
                     @Override
@@ -159,22 +167,21 @@ public class CarWash extends AppCompatActivity {
                         mMinute = minute;
 
                         completeDateTime = date_time+hourOfDay+":"+minute;
-                        mDateAndTime.setText(completeDateTime);
-                        Toast.makeText(CarWash
+                        dateAndTime.setText(completeDateTime);
+                        Toast.makeText(DryCleanActivity
                                         .this, completeDateTime ,
                                 Toast.LENGTH_SHORT).show();
-                        Toast.makeText(CarWash.this, completeDateTime, Toast.LENGTH_SHORT).show();
-
                     }
                 }, mHour, mMinute, false);
         timePickerDialog.show();
     }
 
-    public void Button_OrderCarwash(View view) {
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(CarWash.this);
+    public void Button_OrderDryClean(View view) {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(DryCleanActivity.this);
         builder.setTitle("Confirm Service Schedule Car Wash");
-        View mView = LayoutInflater.from(CarWash.this)
+        View mView = LayoutInflater.from(DryCleanActivity.this)
                 .inflate(R.layout.custom_dialog_accept_decline,null,false);
 
         Button mBtnAccept = mView.findViewById(R.id.btn_acceptDialog);
@@ -185,11 +192,10 @@ public class CarWash extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressDialog.setTitle("Please wait...");
-                progressDialog.setMessage("Savig Order in Progress");
+                progressDialog.setMessage("Savig Request in Progress");
                 progressDialog.setCancelable(false);
                 progressDialog.show();
-
-                saveOrderDataToFirebaseDatabase();
+                saveRequstToFirebaseDatabase();
                 dialog.dismiss();
 
             }
@@ -199,7 +205,7 @@ public class CarWash extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.cancel();
-                Snackbar.make(findViewById(R.id.carWashLayout),"Order Canceled",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.dryClean),"Request Cancled",Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -207,32 +213,45 @@ public class CarWash extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
     }
 
-    private void saveOrderDataToFirebaseDatabase() {
-        String mPrice = txtCarWashPrice.getText().toString().trim();
-        if (mPrice.equalsIgnoreCase("$0")){
-            Snackbar.make(findViewById(R.id.carWashLayout),"Please Choose Wash Type",Snackbar.LENGTH_SHORT).show();
+    private void saveRequstToFirebaseDatabase() {
 
+        if (selectType.equalsIgnoreCase("Pickup")){
+            Snackbar.make(findViewById(R.id.dryClean),"Please Select Pickup Type",Snackbar.LENGTH_SHORT).show();
             progressDialog.dismiss();
             return;
         }
-        CarWashModel carWashModel = new CarWashModel(currentUserId,selectedWash,mPrice,completeDateTime);
-        mRef.push().child(currentUserId).setValue(carWashModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+        if (dateAndTime.getText().equals("")){
+            Snackbar.make(findViewById(R.id.dryClean),"Please Choose Date And Time",Snackbar.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            return;
+        }
+
+        String drycleanPriceTotal = txtDryCleanTotal.getText().toString();
+
+        DryCleanModel dryCleanModel = new DryCleanModel(completeDateTime,drycleanPriceTotal,current_userId);
+
+        mRef.push().child(current_userId).setValue(dryCleanModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     progressDialog.dismiss();
-                    clearAllFields();
-                    Snackbar.make(findViewById(R.id.carWashLayout),"Order Posted Successfully",Snackbar.LENGTH_SHORT).show();
-                }else {
+                    cleatAllFields();
+                    Snackbar.make(findViewById(R.id.dryClean),"Dry Clean Request Saved Successfully",Snackbar.LENGTH_SHORT).show();
+                }else{
                     progressDialog.dismiss();
-                    Snackbar.make(findViewById(R.id.carWashLayout),task.getException().getMessage(),Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(R.id.dryClean),task.getException().getMessage(),Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
+
+
     }
 
-    private void clearAllFields() {
+    private void cleatAllFields() {
         mSpinner.setSelection(0);
-        mDateAndTime.setText("");
+        txtDryCleanCost.setText("$0");
+        txtDryCleanPickup.setText("$0");
+        txtDryCleanTotal.setText("$0");
+        dateAndTime.setText("");
     }
 }
