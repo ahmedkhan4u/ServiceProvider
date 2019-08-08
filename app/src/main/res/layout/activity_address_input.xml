@@ -24,16 +24,7 @@
         android:hint="Address"
         android:textAlignment="center"
         />
-    <EditText
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/street_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Street Adress"
-        android:textAlignment="center"
-        />
+
     <EditText
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -62,7 +53,7 @@
         android:layout_height="30dp"
         android:textColor="@color/blackColor"
         android:button="@drawable/custom_checkbox"
-        android:text="Stay Connected"/>
+        android:text="Make This Default"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -74,5 +65,18 @@
             android:layout_height="match_parent"
             tools:context=".MapsActivity" />
     </FrameLayout>
+    <Button
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/save_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:background="@drawable/button_bg"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        />
 
 </LinearLayout>

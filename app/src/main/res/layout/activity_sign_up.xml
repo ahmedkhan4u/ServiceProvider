@@ -58,7 +58,7 @@
     >
         <fragment
             android:id="@+id/fragment1"
-            android:name="com.khan.serviceprovider.signup_personal_information"
+            android:name="com.khan.serviceprovider.SignupPersonalInformation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></fragment>
 
@@ -78,7 +78,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_bg"
-            android:onClick="Register"
             android:text="Next"
             android:textAllCaps="false"
             android:textColor="@color/whiteColor" />

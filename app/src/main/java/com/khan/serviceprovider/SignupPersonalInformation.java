@@ -25,14 +25,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.khan.serviceprovider.Models.Common;
 import com.khan.serviceprovider.Models.UserDataModel;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Comment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 
-public class signup_personal_information extends Fragment {
+public class SignupPersonalInformation extends Fragment {
 
     View mView;
     private EditText mEmail, mName, mPassword, mPhoneNo;
@@ -49,8 +52,7 @@ public class signup_personal_information extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_signup_personal_information, container, false);
-
+        mView = inflater.inflate(R.layout.fragment_signup_personal_information,container,false);
 
         mEmail = mView.findViewById(R.id.register_Email);
         mName = mView.findViewById(R.id.register_Name);
@@ -135,6 +137,7 @@ public class signup_personal_information extends Fragment {
                             Toast.makeText(getContext(), "User Registration Successful", Toast.LENGTH_SHORT).show();
                             uId = mAuth.getCurrentUser().getUid();
                             saveImageToFirebaseDb();
+                            Common.UID = uId;
 
                         }else {
                             dialog.dismiss();
@@ -205,7 +208,7 @@ public class signup_personal_information extends Fragment {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     downloadUrl = task.getResult().toString();
-                    Toast.makeText(getContext(), "Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Image Uploaded Successfully"+downloadUrl, Toast.LENGTH_SHORT).show();
                     SaveDataToFirebaseDatabase(name,email,password,uId);
                     Picasso.with(getContext()).load(downloadUrl).placeholder(R.drawable.profile_image).into(profileImage);
                     clearEditFields();
