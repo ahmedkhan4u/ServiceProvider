@@ -42,7 +42,6 @@ public class SignupPersonalInformation extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference mRef;
     private ProgressDialog dialog;
-    private TextView btnCreateAccount;
     Button btnRegister;
     CircleImageView profileImage;
     Uri imageUri;
@@ -59,7 +58,6 @@ public class SignupPersonalInformation extends Fragment {
         mPassword = mView.findViewById(R.id.register_password);
         mPhoneNo = mView.findViewById(R.id.register_PhoneNumber);
         mStorage = FirebaseStorage.getInstance().getReference().child("Profile Images");
-        btnCreateAccount = mView.findViewById(R.id.btnCreateAccount);
         btnRegister = mView.findViewById(R.id.btnRegister);
         profileImage = mView.findViewById(R.id.profileImage);
 
@@ -69,13 +67,6 @@ public class SignupPersonalInformation extends Fragment {
 
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");//Db Reference
 
-        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(),MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override

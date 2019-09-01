@@ -27,23 +27,12 @@
         <View
             android:id="@+id/view1"
             android:layout_gravity="center"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_weight="1"
             android:layout_height="5dp"
             android:background="#FFFD9884"/>
         <RadioButton
             android:id="@+id/addresses_radio"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
-        <View
-            android:id="@+id/view2"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_weight="1"
-            android:background="#FFFD9884"/>
-        <RadioButton
-            android:id="@+id/payment_radio"
             android:layout_width="30dp"
             android:layout_height="30dp" />
     </LinearLayout>

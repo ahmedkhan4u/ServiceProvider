@@ -30,27 +30,21 @@ public class SignUpActivity extends AppCompatActivity {
     Button nextFragmentButton;
 
 
-    RadioButton step1,step2,step3;
-    View view1,view2;
+    RadioButton step1,step2;
+    View view1;
 
-    LinearLayout linearLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        SignupPersonalInformation signupFragment = new SignupPersonalInformation();
         final addresses_fragment addresses_fragment = new addresses_fragment();
-        final payment_methods payment_methods = new payment_methods();
-
 
         step1 = (RadioButton) findViewById(R.id.personal_info_radio);
         step2 = (RadioButton) findViewById(R.id.addresses_radio);
-        step3 = (RadioButton) findViewById(R.id.payment_radio);
         view1 = (View) findViewById(R.id.view1);
-        view2 = (View) findViewById(R.id.view2);
-
         step1.setChecked(true);
 
 
@@ -70,10 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                else if(counter == 2)
                 {
-                    replaceFragment(payment_methods);
-                    Toast.makeText(SignUpActivity.this,"condition 2",Toast.LENGTH_LONG).show();
-                    step3.setChecked(true);
-                    view2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    startActivity(new Intent(SignUpActivity.this,Desclaimer.class));
                 }
 
 
